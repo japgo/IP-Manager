@@ -36,11 +36,12 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.btn_apply = new System.Windows.Forms.Button();
 			this.checkedListBox = new System.Windows.Forms.ListBox();
+			this.comboBox1 = new System.Windows.Forms.ComboBox();
 			this.SuspendLayout();
 			// 
 			// btn_modify
 			// 
-			this.btn_modify.Location = new System.Drawing.Point(250, 35);
+			this.btn_modify.Location = new System.Drawing.Point(250, 50);
 			this.btn_modify.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.btn_modify.Name = "btn_modify";
 			this.btn_modify.Size = new System.Drawing.Size(75, 29);
@@ -52,7 +53,7 @@
 			// checkBox_all
 			// 
 			this.checkBox_all.AutoSize = true;
-			this.checkBox_all.Location = new System.Drawing.Point(15, 43);
+			this.checkBox_all.Location = new System.Drawing.Point(15, 58);
 			this.checkBox_all.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.checkBox_all.Name = "checkBox_all";
 			this.checkBox_all.Size = new System.Drawing.Size(78, 19);
@@ -63,7 +64,7 @@
 			// 
 			// btn_add
 			// 
-			this.btn_add.Location = new System.Drawing.Point(169, 35);
+			this.btn_add.Location = new System.Drawing.Point(169, 50);
 			this.btn_add.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.btn_add.Name = "btn_add";
 			this.btn_add.Size = new System.Drawing.Size(75, 29);
@@ -74,7 +75,7 @@
 			// 
 			// btn_delete
 			// 
-			this.btn_delete.Location = new System.Drawing.Point(331, 35);
+			this.btn_delete.Location = new System.Drawing.Point(331, 50);
 			this.btn_delete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.btn_delete.Name = "btn_delete";
 			this.btn_delete.Size = new System.Drawing.Size(75, 29);
@@ -86,16 +87,16 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(12, 9);
+			this.label2.Location = new System.Drawing.Point(33, 16);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(314, 15);
+			this.label2.Size = new System.Drawing.Size(130, 15);
 			this.label2.TabIndex = 8;
-			this.label2.Text = "※ 랜 카드 어뎁터 이름은 \'로컬 영역 연결\' 이여야 합니다.";
+			this.label2.Text = "변경할 네트워크 이름 :";
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(107, 234);
+			this.label3.Location = new System.Drawing.Point(107, 249);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(219, 15);
 			this.label3.TabIndex = 9;
@@ -103,7 +104,7 @@
 			// 
 			// btn_apply
 			// 
-			this.btn_apply.Location = new System.Drawing.Point(331, 227);
+			this.btn_apply.Location = new System.Drawing.Point(331, 242);
 			this.btn_apply.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.btn_apply.Name = "btn_apply";
 			this.btn_apply.Size = new System.Drawing.Size(75, 29);
@@ -116,16 +117,25 @@
 			// 
 			this.checkedListBox.FormattingEnabled = true;
 			this.checkedListBox.ItemHeight = 15;
-			this.checkedListBox.Location = new System.Drawing.Point(15, 71);
+			this.checkedListBox.Location = new System.Drawing.Point(15, 86);
 			this.checkedListBox.Name = "checkedListBox";
 			this.checkedListBox.Size = new System.Drawing.Size(391, 139);
 			this.checkedListBox.TabIndex = 11;
+			// 
+			// comboBox1
+			// 
+			this.comboBox1.FormattingEnabled = true;
+			this.comboBox1.Location = new System.Drawing.Point(169, 13);
+			this.comboBox1.Name = "comboBox1";
+			this.comboBox1.Size = new System.Drawing.Size(236, 23);
+			this.comboBox1.TabIndex = 12;
 			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(417, 266);
+			this.ClientSize = new System.Drawing.Size(417, 287);
+			this.Controls.Add(this.comboBox1);
 			this.Controls.Add(this.checkedListBox);
 			this.Controls.Add(this.btn_apply);
 			this.Controls.Add(this.label3);
@@ -139,6 +149,7 @@
 			this.Name = "Main";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "IP Manager";
+			this.Load += new System.EventHandler(this.Main_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -153,6 +164,7 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Button btn_apply;
 		private System.Windows.Forms.ListBox checkedListBox;
+		private System.Windows.Forms.ComboBox comboBox1;
 	}
 }
 

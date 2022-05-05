@@ -5,6 +5,7 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.Threading;
 using System.Security.Principal;
+using System.Net.NetworkInformation;
 
 namespace IP_Manager
 {
@@ -60,7 +61,12 @@ namespace IP_Manager
 			if( sel_item == null )
 				return;
 
-			DialogResult dr = MessageBox.Show( string.Format( "'{0}' 설정을 로컬 영역 연결에 적용합니다.", sel_item.ToString() ),
+			if( comboBox1.SelectedItem == null )
+				return;
+
+			string network_name = comboBox1.SelectedItem.ToString();
+
+			DialogResult dr = MessageBox.Show( string.Format( "'{0}' 설정을 {1}에 적용합니다.", sel_item.ToString(), network_name ),
 				"적용", MessageBoxButtons.OKCancel, MessageBoxIcon.Information );
 
 			if( dr != DialogResult.OK )
@@ -101,22 +107,31 @@ namespace IP_Manager
 
 			if( auto_ip == false )
 			{
-				pro.StandardInput.Write( string.Format( "netsh -c int ip set address name=\"로컬 영역 연결\" source=static addr={0} mask={1} gateway={2} gwmetric=0" + Environment.NewLine,
-					ip, subnet_mask, gateway ) );
+				string format = string.Format( "netsh -c int ip set address name=\"{2}\" source=static addr={0} mask={1} gwmetric=0 ", ip, subnet_mask, network_name );
+				if( gateway != "..." )
+				{
+					format += string.Format( "gateway={0}", gateway );
+				}
+				format += Environment.NewLine;
+
+				pro.StandardInput.Write( format );
 			}
 			else
 			{
-				pro.StandardInput.Write( string.Format( "netsh -c int ip set address name=\"로컬 영역 연결\" source=dhcp" + Environment.NewLine ) );
+				pro.StandardInput.Write( string.Format( "netsh -c int ip set address name=\"{0}\" source=dhcp" + Environment.NewLine, network_name ) );
 			}
 
 			if( auto_dns == false )
 			{
-				pro.StandardInput.Write( string.Format( "netsh interface ip set dns \"로컬 영역 연결\" source=static address={0}" + Environment.NewLine,
-					dns1 ) );
+				if( dns1 != "..." )
+				{
+					pro.StandardInput.Write( string.Format( "netsh interface ip set dns \"{1}\" source=static address={0}" + Environment.NewLine,
+					dns1, network_name ) );
+				}
 			}
 			else
 			{
-				pro.StandardInput.Write( string.Format( "netsh interface ip set dns \"로컬 영역 연결\" source=dhcp" + Environment.NewLine ) );
+				pro.StandardInput.Write( string.Format( "netsh interface ip set dns \"{0}\" source=dhcp" + Environment.NewLine, network_name ) );
 			}
 
 			pro.StandardInput.Close();
@@ -144,6 +159,16 @@ namespace IP_Manager
 
 			reg.DeleteSubKeyTree( sel_item.ToString() );
 			this.display_ip_list();
+		}
+
+		private void Main_Load( object sender, EventArgs e )
+		{
+			NetworkInterface[] nicArray = NetworkInterface.GetAllNetworkInterfaces();
+			foreach( NetworkInterface nic in nicArray )
+			{
+				comboBox1.Items.Add( nic.Name );
+			}
+			comboBox1.SelectedIndex = 0;
 		}
 	}
 }
